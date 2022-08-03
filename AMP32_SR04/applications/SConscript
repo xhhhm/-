@@ -1,0 +1,17 @@
+Import('RTT_ROOT')
+Import('rtconfig')
+from building import *
+
+cwd = GetCurrentDir()
+src = Glob('*.c')
+CPPPATH = [cwd]
+
+group = DefineGroup('Applications', src, depend = [''], CPPPATH = CPPPATH)
+
+# add LCD code files
+group = SConscript(os.path.join('LCD', 'SConscript'))
+
+# add user_task code files
+group = SConscript(os.path.join('user_task', 'SConscript'))
+
+Return('group')
